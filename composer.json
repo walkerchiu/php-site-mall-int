@@ -1,0 +1,61 @@
+{
+    "name": "walkerchiu/php-site-int",
+    "type": "library",
+    "authors": [
+        {
+            "name":  "Walker Chiu",
+            "email": "chenjen.chiou@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": "^7.3",
+        "walkerchiu/php-account-int": "^1.0",
+        "walkerchiu/php-currency-int": "^1.0",
+        "walkerchiu/php-morph-address-int": "^1.0",
+        "walkerchiu/php-morph-category-int": "^1.0",
+        "walkerchiu/php-morph-comment-int": "^1.0",
+        "walkerchiu/php-morph-image-int": "^1.0",
+        "walkerchiu/php-role-int": "^1.0"
+    },
+    "suggest": {
+        "walkerchiu/php-api-int": "^1.0",
+        "walkerchiu/php-coupon-int": "^1.0",
+        "walkerchiu/php-mall-cart-int": "^1.0",
+        "walkerchiu/php-mall-order-int": "^1.0",
+        "walkerchiu/php-mall-shelf-int": "^1.0",
+        "walkerchiu/php-mall-tablerate-int": "^1.0",
+        "walkerchiu/php-mall-wishlist-int": "^1.0",
+        "walkerchiu/php-morph-board-int": "^1.0",
+        "walkerchiu/php-morph-link-int": "^1.0",
+        "walkerchiu/php-morph-registration": "^1.0",
+        "walkerchiu/php-newsletter-int": "^1.0",
+        "walkerchiu/php-payment-int": "^1.0",
+        "walkerchiu/php-point-int": "^1.0",
+        "walkerchiu/php-shipment-int": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "WalkerChiu\\Site\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "WalkerChiu\\Site\\SiteServiceProvider"
+            ],
+            "aliases": {
+                "Site":   "WalkerChiu\\Site\\Models\\Entities\\Site",
+                "Email":  "WalkerChiu\\Site\\Models\\Entities\\Email",
+                "Layout": "WalkerChiu\\Site\\Models\\Entities\\Layout"
+            }
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    }
+}
