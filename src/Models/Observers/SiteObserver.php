@@ -169,6 +169,12 @@ class SiteObserver
                     }
                 }
                 if (
+                    config('wk-site.onoff.morph-nav')
+                    && !empty(config('wk-core.class.morph-nav.nav'))
+                ) {
+                    $layout->navs()->detach();
+                }
+                if (
                     config('wk-site.onoff.morph-tag')
                     && !empty(config('wk-core.class.morph-tag.tag'))
                     && is_iterable($layout->tags())
@@ -254,6 +260,12 @@ class SiteObserver
                 foreach ($records as $record) {
                     $record->forceDelete();
                 }
+            }
+            if (
+                config('wk-site.onoff.morph-nav')
+                && !empty(config('wk-core.class.morph-nav.nav'))
+            ) {
+                $entity->navs()->detach();
             }
             if (
                 config('wk-site.onoff.morph-registration')
