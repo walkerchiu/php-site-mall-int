@@ -114,4 +114,25 @@ class Layout extends Entity
                                 return $query->where('user_id', $user_id);
                             });
     }
+
+    /**
+     * Get all of the navs for the layout.
+     *
+     * @param String  $type
+     * @param Bool    $is_enabled
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function navs($type = null, $is_enabled = null)
+    {
+        $table = config('wk-core.table.morph-nav.navs_morphs');
+        return $this->morphToMany(config('wk-core.class.morph-nav.nav'), 'morph', $table)
+                    ->when(is_null($type), function ($query) {
+                          return $query->whereNull('type');
+                      }, function ($query) use ($type) {
+                          return $query->where('type', $type);
+                      })
+                    ->unless( is_null($is_enabled), function ($query) use ($is_enabled) {
+                        return $query->where('is_enabled', $is_enabled);
+                    });
+    }
 }

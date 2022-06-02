@@ -17,6 +17,7 @@ class SiteInitializer extends Command
      */
     protected $signature = 'command:SiteInitializer
         {--path-lang-category=php-site::category}
+        {--path-lang-nav=php-site::nav}
         {--path-views-email=php-site::emails}
         {--template-email=0}';
 
@@ -95,6 +96,7 @@ class SiteInitializer extends Command
         $this->initializeAddress('site', $site->id);
         $this->initializeEmails($site->id, $this->option('path-views-email'), $this->option('template-email'));
         $this->initializeCategories($site->id, $this->option('path-lang-category'));
+        $this->initializeNavs($site->id, $this->option('path-lang-nav'));
         $this->initializeCart($site->id);
         $this->initializeAccount();
 
@@ -312,6 +314,101 @@ class SiteInitializer extends Command
         } else {
             $this->line(config('wk-core.table.morph-category.categories') .' have not been affected.');
             $this->line(config('wk-core.table.morph-category.categories_lang') .' have not been affected.');
+        }
+    }
+
+    /**
+     * Initialize Navs.
+     *
+     * @param String  $site_id
+     * @param String  $path
+     * @return Mixed
+     */
+    public function initializeNavs(string $site_id, string $path)
+    {
+        if (
+            config('wk-site.onoff.morph-nav')
+            && !empty(config('wk-core.class.morph-nav.nav'))
+        ) {
+            $items = config('wk-site.initializer.navs');
+            $langs = config('wk-site.initializer.site.language_supported');
+            foreach ($items as $key1=>$item) {
+                $nav = App::make(config('wk-core.class.morph-nav.nav'))::create([
+                    'host_type'  => config('wk-core.class.site.site'),
+                    'host_id'    => $site_id,
+                    'type'       => 'admin',
+                    'identifier' => $key1,
+                    'icon'       => $item['icon'],
+                    'order'      => array_search($key1, array_keys($items)),
+                    'is_enabled' => 1
+                ]);
+                foreach ($langs as $lang) {
+                    App::setLocale($lang);
+                    App::make(config('wk-core.class.morph-nav.navLang'))::create([
+                        'morph_type' => get_class($nav),
+                        'morph_id'   => $nav->id,
+                        'code'       => $lang,
+                        'key'        => 'name',
+                        'value'      => trans($path.'.'.$key1),
+                        'is_current' => 1
+                    ]);
+                }
+
+                $i = 0;
+                foreach ($item['data'] as $key2 => $value2) {
+                    $nav2 = App::make(config('wk-core.class.morph-nav.nav'))::create([
+                        'host_type'  => config('wk-core.class.site.site'),
+                        'host_id'    => $site_id,
+                        'ref_id'     => $nav->id,
+                        'type'       => 'admin',
+                        'identifier' => $key1 .'-'. $key2,
+                        'icon'       => $value2['icon'],
+                        'order'      => $i++,
+                        'is_enabled' => 1
+                    ]);
+                    foreach ($langs as $lang) {
+                        App::setLocale($lang);
+                        App::make(config('wk-core.class.morph-nav.navLang'))::create([
+                            'morph_type' => get_class($nav2),
+                            'morph_id'   => $nav2->id,
+                            'code'       => $lang,
+                            'key'        => 'name',
+                            'value'      => trans($path.'.'.$key1 .'-'. $key2),
+                            'is_current' => 1
+                        ]);
+                    }
+
+                    $j = 0;
+                    foreach ($value2['data'] as $key3 => $value3) {
+                        $nav3 = App::make(config('wk-core.class.morph-nav.nav'))::create([
+                            'host_type'  => config('wk-core.class.site.site'),
+                            'host_id'    => $site_id,
+                            'ref_id'     => $nav2->id,
+                            'type'       => 'admin',
+                            'identifier' => $key1 .'-'. $key2 .'-'. $key3,
+                            'icon'       => $value3['icon'],
+                            'order'      => $j++,
+                            'is_enabled' => 1
+                        ]);
+                        foreach ($langs as $lang) {
+                            App::setLocale($lang);
+                            App::make(config('wk-core.class.morph-nav.navLang'))::create([
+                                'morph_type' => get_class($nav3),
+                                'morph_id'   => $nav3->id,
+                                'code'       => $lang,
+                                'key'        => 'name',
+                                'value'      => trans($path.'.'.$key1 .'-'. $key2 .'-'. $key3),
+                                'is_current' => 1
+                            ]);
+                        }
+                    }
+                }
+            }
+            $this->info(config('wk-core.table.morph-nav.navs') .' have been affected.');
+            $this->info(config('wk-core.table.morph-nav.navs_lang') .' have been affected.');
+        } else {
+            $this->line(config('wk-core.table.morph-nav.navs') .' have not been affected.');
+            $this->line(config('wk-core.table.morph-nav.navs_lang') .' have not been affected.');
         }
     }
 

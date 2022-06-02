@@ -137,6 +137,12 @@ class LayoutObserver
                 }
             }
             if (
+                config('wk-site.onoff.morph-nav')
+                && !empty(config('wk-core.class.morph-nav.nav'))
+            ) {
+                $entity->navs()->detach();
+            }
+            if (
                 config('wk-site.onoff.morph-tag')
                 && !empty(config('wk-core.class.morph-tag.tag'))
                 && is_iterable($entity->tags())

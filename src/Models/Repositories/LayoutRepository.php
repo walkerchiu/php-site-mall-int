@@ -109,6 +109,12 @@ class LayoutRepository extends Repository
                                                           ->whereIn('id', $data['categories']);
                                                 });
                                             })
+                                            ->unless(empty($data['navs']), function ($query) use ($data) {
+                                                return $query->whereHas('navs', function ($query) use ($data) {
+                                                    $query->ofEnabled()
+                                                          ->whereIn('id', $data['navs']);
+                                                });
+                                            })
                                             ->unless(empty($data['tags']), function ($query) use ($data) {
                                                 return $query->whereHas('tags', function ($query) use ($data) {
                                                     $query->ofEnabled()

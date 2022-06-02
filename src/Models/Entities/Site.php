@@ -228,6 +228,26 @@ class Site extends Entity
     }
 
     /**
+     * Get all of the navs for the site.
+     *
+     * @param String  $type
+     * @param Bool    $is_enabled
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function navs($type = null, $is_enabled = null)
+    {
+        return $this->morphMany(config('wk-core.class.morph-nav.nav'), 'host')
+                    ->when(is_null($type), function ($query) {
+                          return $query->whereNull('type');
+                      }, function ($query) use ($type) {
+                          return $query->where('type', $type);
+                      })
+                    ->unless( is_null($is_enabled), function ($query) use ($is_enabled) {
+                        return $query->where('is_enabled', $is_enabled);
+                    });
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
     public function newsletters()
