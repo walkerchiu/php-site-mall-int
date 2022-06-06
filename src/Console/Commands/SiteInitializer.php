@@ -93,11 +93,21 @@ class SiteInitializer extends Command
         $this->info(config('wk-core.table.morph-image.images') .' have been affected.');
         $this->info(config('wk-core.table.morph-image.images_lang') .' have been affected.');
 
-        $this->initializeAddress('site', $site->id);
-        $this->initializeEmails($site->id, $this->option('path-views-email'), $this->option('template-email'));
-        $this->initializeCategories($site->id, $this->option('path-lang-category'));
-        $this->initializeNavs($site->id, $this->option('path-lang-nav'));
-        $this->initializeCart($site->id);
+        if (config('wk-site.initializer.site.default_data.address')) {
+            $this->initializeAddress('site', $site->id);
+        }
+        if (config('wk-site.initializer.site.default_data.email')) {
+            $this->initializeEmails($site->id, $this->option('path-views-email'), $this->option('template-email'));
+        }
+        if (config('wk-site.initializer.site.default_data.categories')) {
+            $this->initializeCategories($site->id, $this->option('path-lang-category'));
+        }
+        if (config('wk-site.initializer.site.default_data.navs')) {
+            $this->initializeNavs($site->id, $this->option('path-lang-nav'));
+        }
+        if (config('wk-site.initializer.site.default_data.cart-channels')) {
+            $this->initializeCart($site->id);
+        }
         $this->initializeAccount();
 
         $this->info('Done!');

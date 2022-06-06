@@ -177,6 +177,13 @@ return [
                 'address_line1' => 'Administrative District',
                 'address_line2' => 'Street Address',
                 'guide'         => 'Monday - Friday: 9:00 - 19:00'
+            ],
+            'default_data' => [
+                'address'       => 1,
+                'categories'    => 1,
+                'navs'          => 1,
+                'cart-channels' => 1,
+                'email'         => 1
             ]
         ],
         'categories' => [
