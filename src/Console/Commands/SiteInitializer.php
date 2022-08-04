@@ -16,7 +16,6 @@ class SiteInitializer extends Command
      * @var String
      */
     protected $signature = 'command:SiteInitializer
-        {--path-lang-category=php-site::category}
         {--path-lang-nav=php-site::nav}
         {--path-views-email=php-site::emails}
         {--template-email=0}';
@@ -98,9 +97,6 @@ class SiteInitializer extends Command
         }
         if (config('wk-site.initializer.site.default_data.email')) {
             $this->initializeEmails($site->id, $this->option('path-views-email'), $this->option('template-email'));
-        }
-        if (config('wk-site.initializer.site.default_data.categories')) {
-            $this->initializeCategories($site->id, $this->option('path-lang-category'));
         }
         if (config('wk-site.initializer.site.default_data.navs')) {
             $this->initializeNavs($site->id, $this->option('path-lang-nav'));
@@ -230,101 +226,6 @@ class SiteInitializer extends Command
 
         $this->info(config('wk-core.table.site.emails') .' have been affected.');
         $this->info(config('wk-core.table.site.emails_lang') .' have been affected.');
-    }
-
-    /**
-     * Initialize Categories.
-     *
-     * @param Int     $site_id
-     * @param String  $path
-     * @return Mixed
-     */
-    public function initializeCategories(int $site_id, string $path)
-    {
-        if (
-            config('wk-site.onoff.morph-category')
-            && !empty(config('wk-core.class.morph-category.category'))
-        ) {
-            $items = config('wk-site.initializer.categories');
-            $langs = config('wk-site.initializer.site.language_supported');
-            foreach ($items as $key1=>$item) {
-                $category = App::make(config('wk-core.class.morph-category.category'))::create([
-                    'host_type'  => config('wk-core.class.site.site'),
-                    'host_id'    => $site_id,
-                    'type'       => 'admin',
-                    'identifier' => $key1,
-                    'icon'       => $item['icon'],
-                    'order'      => array_search($key1, array_keys($items)),
-                    'is_enabled' => 1
-                ]);
-                foreach ($langs as $lang) {
-                    App::setLocale($lang);
-                    App::make(config('wk-core.class.morph-category.categoryLang'))::create([
-                        'morph_type' => get_class($category),
-                        'morph_id'   => $category->id,
-                        'code'       => $lang,
-                        'key'        => 'name',
-                        'value'      => trans($path.'.'.$key1),
-                        'is_current' => 1
-                    ]);
-                }
-
-                $i = 0;
-                foreach ($item['data'] as $key2 => $value2) {
-                    $category2 = App::make(config('wk-core.class.morph-category.category'))::create([
-                        'host_type'  => config('wk-core.class.site.site'),
-                        'host_id'    => $site_id,
-                        'ref_id'     => $category->id,
-                        'type'       => 'admin',
-                        'identifier' => $key1 .'-'. $key2,
-                        'icon'       => $value2['icon'],
-                        'order'      => $i++,
-                        'is_enabled' => 1
-                    ]);
-                    foreach ($langs as $lang) {
-                        App::setLocale($lang);
-                        App::make(config('wk-core.class.morph-category.categoryLang'))::create([
-                            'morph_type' => get_class($category2),
-                            'morph_id'   => $category2->id,
-                            'code'       => $lang,
-                            'key'        => 'name',
-                            'value'      => trans($path.'.'.$key1 .'-'. $key2),
-                            'is_current' => 1
-                        ]);
-                    }
-
-                    $j = 0;
-                    foreach ($value2['data'] as $key3 => $value3) {
-                        $category3 = App::make(config('wk-core.class.morph-category.category'))::create([
-                            'host_type'  => config('wk-core.class.site.site'),
-                            'host_id'    => $site_id,
-                            'ref_id'     => $category2->id,
-                            'type'       => 'admin',
-                            'identifier' => $key1 .'-'. $key2 .'-'. $key3,
-                            'icon'       => $value3['icon'],
-                            'order'      => $j++,
-                            'is_enabled' => 1
-                        ]);
-                        foreach ($langs as $lang) {
-                            App::setLocale($lang);
-                            App::make(config('wk-core.class.morph-category.categoryLang'))::create([
-                                'morph_type' => get_class($category3),
-                                'morph_id'   => $category3->id,
-                                'code'       => $lang,
-                                'key'        => 'name',
-                                'value'      => trans($path.'.'.$key1 .'-'. $key2 .'-'. $key3),
-                                'is_current' => 1
-                            ]);
-                        }
-                    }
-                }
-            }
-            $this->info(config('wk-core.table.morph-category.categories') .' have been affected.');
-            $this->info(config('wk-core.table.morph-category.categories_lang') .' have been affected.');
-        } else {
-            $this->line(config('wk-core.table.morph-category.categories') .' have not been affected.');
-            $this->line(config('wk-core.table.morph-category.categories_lang') .' have not been affected.');
-        }
     }
 
     /**

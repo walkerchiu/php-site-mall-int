@@ -41,7 +41,7 @@ return [
         'mall-wishlist'      => 0,
         'morph-address'      => 1,
         'morph-board'        => 0,
-        'morph-category'     => 1,
+        'morph-category'     => 0,
         'morph-comment'      => 0,
         'morph-image'        => 1,
         'morph-nav'          => 1,
@@ -180,201 +180,9 @@ return [
             ],
             'default_data' => [
                 'address'       => 1,
-                'categories'    => 1,
                 'navs'          => 1,
                 'cart-channels' => 1,
                 'email'         => 1
-            ]
-        ],
-        'categories' => [
-            'system' => [
-                'icon' => 'fas fa-fw fa-cogs',
-                'data' => [
-                    'schedule' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'template' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'skin' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'plugin' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'interface' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'backup' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'log' => [
-                        'icon' => '',
-                        'data' => []
-                    ]
-                ]
-            ],
-            'application' => [
-                'icon' => 'fas fa-fw fa-store',
-                'data' => [
-                    'site' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'board' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'layout' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'email' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'category' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'currency' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'tag' => [
-                        'icon' => '',
-                        'data' => []
-                    ]
-                ]
-            ],
-            'member' => [
-                'icon' => 'fas fa-fw fa-users',
-                'data' => [
-                    'member' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'role' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'permission' => [
-                        'icon' => '',
-                        'data' => []
-                    ]
-                ]
-            ],
-            'stock' => [
-                'icon' => 'fas fa-fw fa-list',
-                'data' => [
-                    'product' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'catalog' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'stock' => [
-                        'icon' => '',
-                        'data' => []
-                    ]
-                ]
-            ],
-            'sales' => [
-                'icon' => 'fas fa-fw fa-briefcase',
-                'data' => [
-                    'order' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'payment' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'shipment' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'promotion' => [
-                        'icon' => '',
-                        'data' => [
-                            'coupon' => [
-                                'icon' => '',
-                                'data' => []
-                            ],
-                            'point' => [
-                                'icon' => '',
-                                'data' => []
-                            ],
-                            'tablerate' => [
-                                'icon' => '',
-                                'data' => []
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            'services' => [
-                'icon' => 'fas fa-file-signature',
-                'data' => [
-                    'newsletter' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'message' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'comment' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'report' => [
-                        'icon' => '',
-                        'data' => []
-                    ]
-                ]
-            ],
-            'statistics' => [
-                'icon' => 'fas fa-fw fa-chart-area',
-                'data' => [
-                    'member' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'stock' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'order' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'promotion' => [
-                        'icon' => '',
-                        'data' => [
-                            'coupon' => [
-                                'icon' => '',
-                                'data' => []
-                            ],
-                            'point' => [
-                                'icon' => '',
-                                'data' => []
-                            ],
-                            'tablerate' => [
-                                'icon' => '',
-                                'data' => []
-                            ]
-                        ]
-                    ]
-                ]
             ]
         ],
         'navs' => [
@@ -427,10 +235,6 @@ return [
                         'data' => []
                     ],
                     'email' => [
-                        'icon' => '',
-                        'data' => []
-                    ],
-                    'category' => [
                         'icon' => '',
                         'data' => []
                     ],
