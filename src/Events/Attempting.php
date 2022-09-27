@@ -1,9 +1,9 @@
 <?php
 
-namespace WalkerChiu\Site\Events;
+namespace WalkerChiu\SiteMall\Events;
 
 use Illuminate\Auth\Events\Attempting as BaseClass;
-use WalkerChiu\Site\Events\EventTrait;
+use WalkerChiu\SiteMall\Events\EventTrait;
 
 class Attempting extends BaseClass
 {

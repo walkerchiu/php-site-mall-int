@@ -1,9 +1,9 @@
 <?php
 
-namespace WalkerChiu\Site\Middleware;
+namespace WalkerChiu\SiteMall\Middleware;
 
 use Closure;
-use WalkerChiu\Site\Models\Services\SiteService;
+use WalkerChiu\SiteMall\Models\Services\SiteService;
 
 class verifyEnable
 {

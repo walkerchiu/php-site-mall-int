@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Events\Subscribers;
+namespace WalkerChiu\SiteMall\Events\Subscribers;
 
 class UserEventSubscriber
 {
@@ -11,40 +11,40 @@ class UserEventSubscriber
      */
     public function subscribe($events)
     {
-        if (config('wk-site.register_event.VerifyEmail'))
+        if (config('wk-site-mall.register_event.VerifyEmail'))
             $events->listen(
-                'WalkerChiu\Site\Events\VerifyEmail',
-                'WalkerChiu\Site\Events\Handlers\EmailVerificationNotification'
+                'WalkerChiu\SiteMall\Events\VerifyEmail',
+                'WalkerChiu\SiteMall\Events\Handlers\EmailVerificationNotification'
             );
 
-        if (config('wk-site.register_event.EmailVerified'))
+        if (config('wk-site-mall.register_event.EmailVerified'))
             $events->listen(
-                'WalkerChiu\Site\Events\EmailVerified',
-                'WalkerChiu\Site\Events\Handlers\EmailVerificationNotification'
+                'WalkerChiu\SiteMall\Events\EmailVerified',
+                'WalkerChiu\SiteMall\Events\Handlers\EmailVerificationNotification'
             );
 
-        if (config('wk-site.register_event.PasswordForgot'))
+        if (config('wk-site-mall.register_event.PasswordForgot'))
             $events->listen(
-                'WalkerChiu\Site\Events\PasswordForgot',
-                'WalkerChiu\Site\Events\Handlers\EmailVerificationNotification'
+                'WalkerChiu\SiteMall\Events\PasswordForgot',
+                'WalkerChiu\SiteMall\Events\Handlers\EmailVerificationNotification'
             );
 
-        if (config('wk-site.register_event.PasswordReset'))
+        if (config('wk-site-mall.register_event.PasswordReset'))
             $events->listen(
-                'WalkerChiu\Site\Events\PasswordReset',
-                'WalkerChiu\Site\Events\Handlers\EmailVerificationNotification'
+                'WalkerChiu\SiteMall\Events\PasswordReset',
+                'WalkerChiu\SiteMall\Events\Handlers\EmailVerificationNotification'
             );
 
-        if (config('wk-site.register_event.Registered'))
+        if (config('wk-site-mall.register_event.Registered'))
             $events->listen(
-                'WalkerChiu\Site\Events\Registered',
-                'WalkerChiu\Site\Events\Handlers\RegisteredNotification'
+                'WalkerChiu\SiteMall\Events\Registered',
+                'WalkerChiu\SiteMall\Events\Handlers\RegisteredNotification'
             );
 
-        if (config('wk-site.register_event.Authenticated'))
+        if (config('wk-site-mall.register_event.Authenticated'))
             $events->listen(
-                'WalkerChiu\Site\Events\Authenticated',
-                'WalkerChiu\Site\Events\Handlers\AuthenticatedNotification'
+                'WalkerChiu\SiteMall\Events\Authenticated',
+                'WalkerChiu\SiteMall\Events\Handlers\AuthenticatedNotification'
             );
     }
 }

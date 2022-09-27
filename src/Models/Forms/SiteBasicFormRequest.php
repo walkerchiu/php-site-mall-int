@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Forms;
+namespace WalkerChiu\SiteMall\Models\Forms;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -98,7 +98,7 @@ class SiteBasicFormRequest extends FormRequest
             'keywords'           => '',
             'remarks'            => ''
         ];
-        if (config('wk-site.onoff.currency')) {
+        if (config('wk-site-mall.onoff.currency')) {
             $service = new CurrencyService();
             $rules = array_merge($rules, [
                 'currency_id'        => ['required', Rule::in($service->getEnabledSettingId())],
@@ -116,7 +116,7 @@ class SiteBasicFormRequest extends FormRequest
             $request->isMethod('put')
             && isset($request->id)
         ) {
-            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site.sites').',id']]);
+            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.sites').',id']]);
         }
 
         return $rules;
@@ -189,7 +189,7 @@ class SiteBasicFormRequest extends FormRequest
                         $validator->errors()->add('area_supported', trans('php-core::validation.in'));
                 }
             }
-            if (config('wk-site.onoff.currency')) {
+            if (config('wk-site-mall.onoff.currency')) {
                 if (
                     isset($data['currency_supported'])
                     && is_array($data['currency_supported'])
@@ -202,7 +202,7 @@ class SiteBasicFormRequest extends FormRequest
                 }
             }
             if (isset($data['identifier'])) {
-                $result = config('wk-core.class.site.site')::where('identifier', $data['identifier'])
+                $result = config('wk-core.class.site-mall.site')::where('identifier', $data['identifier'])
                                 ->when(isset($data['id']), function ($query) use ($data) {
                                     return $query->where('id', '<>', $data['id']);
                                   })

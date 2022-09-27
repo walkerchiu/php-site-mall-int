@@ -1,17 +1,17 @@
 <?php
 
-namespace WalkerChiu\Site\Console\Commands;
+namespace WalkerChiu\SiteMall\Console\Commands;
 
 use WalkerChiu\Core\Console\Commands\Cleaner;
 
-class SiteCleaner extends Cleaner
+class SiteMallCleaner extends Cleaner
 {
     /**
      * The name and signature of the console command.
      *
      * @var String
      */
-    protected $signature = 'command:SiteCleaner';
+    protected $signature = 'command:SiteMallCleaner';
 
     /**
      * The console command description.

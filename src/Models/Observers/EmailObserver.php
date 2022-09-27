@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Observers;
+namespace WalkerChiu\SiteMall\Models\Observers;
 
 class EmailObserver
 {
@@ -68,7 +68,7 @@ class EmailObserver
     public function saving($entity)
     {
         if ($entity->is_enabled) {
-            config('wk-core.class.site.email')
+            config('wk-core.class.site-mall.email')
                 ::withTrashed()
                 ->where('id', '<>', $entity->id)
                 ->where('site_id', $entity->site_id)
@@ -115,7 +115,7 @@ class EmailObserver
                             ->forceDelete();
         }
 
-        if (!config('wk-site.soft_delete')) {
+        if (!config('wk-site-mall.soft_delete')) {
             $entity->forceDelete();
         }
     }

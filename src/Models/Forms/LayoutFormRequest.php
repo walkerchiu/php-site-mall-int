@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Forms;
+namespace WalkerChiu\SiteMall\Models\Forms;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -61,8 +61,8 @@ class LayoutFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'site_id'        => ['required','integer','min:1','exists:'.config('wk-core.table.site.sites').',id'],
-            'type'           => ['required', Rule::in(config('wk-core.class.site.layoutType')::getCodes())],
+            'site_id'        => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.sites').',id'],
+            'type'           => ['required', Rule::in(config('wk-core.class.site-mall.layoutType')::getCodes())],
             'serial'         => '',
             'identifier'     => 'required|string|max:255',
             'script_head'    => '',
@@ -83,7 +83,7 @@ class LayoutFormRequest extends FormRequest
             $request->isMethod('put')
             && isset($request->id)
         ) {
-            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site.layouts').',id']]);
+            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.layouts').',id']]);
         }
 
         return $rules;
@@ -133,7 +133,7 @@ class LayoutFormRequest extends FormRequest
         $validator->after( function ($validator) {
             $data = $validator->getData();
             if (isset($data['identifier'])) {
-                $result = config('wk-core.class.site.layout')::where('identifier', $data['identifier'])
+                $result = config('wk-core.class.site-mall.layout')::where('identifier', $data['identifier'])
                                 ->when(isset($data['site_id']), function ($query) use ($data) {
                                     return $query->where('site_id', $data['site_id']);
                                   })

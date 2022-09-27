@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Services;
+namespace WalkerChiu\SiteMall\Models\Services;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -54,8 +54,8 @@ class EmailSender extends Mailable
      */
     public function build()
     {
-        if (config('wk-site.smtp.fixed_sender.onoff'))
-            $this->from['email'] = config('wk-site.smtp.fixed_sender.email');
+        if (config('wk-site-mall.smtp.fixed_sender.onoff'))
+            $this->from['email'] = config('wk-site-mall.smtp.fixed_sender.email');
 
         $email = $this->from($this->from['email'], $this->from['name']);
 

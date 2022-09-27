@@ -1,21 +1,21 @@
 <?php
 
-namespace WalkerChiu\Site\Console\Commands;
+namespace WalkerChiu\SiteMall\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Artisan;
 use WalkerChiu\Currency\Models\Services\CurrencyService;
-use WalkerChiu\Site\Models\Services\EmailTemplateService;
+use WalkerChiu\SiteMall\Models\Services\EmailTemplateService;
 
-class SiteInitializer extends Command
+class SiteMallInitializer extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var String
      */
-    protected $signature = 'command:SiteInitializer
+    protected $signature = 'command:SiteMallInitializer
         {--path-lang-nav=php-site::nav}
         {--path-views-email=php-site::emails}
         {--template-email=0}';
@@ -46,62 +46,62 @@ class SiteInitializer extends Command
      */
     public function handle()
     {
-        $this->call('command:SiteCleaner');
+        $this->call('command:SiteMallCleaner');
 
         $this->info('Initializing...');
 
 
         // Create Main Site
         $data = [
-            'identifier'         => config('wk-site.initializer.site.identifier'),
-            'language'           => config('wk-site.initializer.site.language'),
-            'language_supported' => config('wk-site.initializer.site.language_supported'),
-            'timezone'           => config('wk-site.initializer.site.timezone'),
-            'area_supported'     => config('wk-site.initializer.site.area_supported'),
-            'smtp_host'          => config('wk-site.initializer.site.smtp_host'),
-            'smtp_port'          => config('wk-site.initializer.site.smtp_port'),
-            'smtp_encryption'    => config('wk-site.initializer.site.smtp_encryption'),
-            'smtp_username'      => config('wk-site.initializer.site.smtp_username'),
-            'smtp_password'      => config('wk-site.initializer.site.smtp_password'),
+            'identifier'         => config('wk-site-mall.initializer.site.identifier'),
+            'language'           => config('wk-site-mall.initializer.site.language'),
+            'language_supported' => config('wk-site-mall.initializer.site.language_supported'),
+            'timezone'           => config('wk-site-mall.initializer.site.timezone'),
+            'area_supported'     => config('wk-site-mall.initializer.site.area_supported'),
+            'smtp_host'          => config('wk-site-mall.initializer.site.smtp_host'),
+            'smtp_port'          => config('wk-site-mall.initializer.site.smtp_port'),
+            'smtp_encryption'    => config('wk-site-mall.initializer.site.smtp_encryption'),
+            'smtp_username'      => config('wk-site-mall.initializer.site.smtp_username'),
+            'smtp_password'      => config('wk-site-mall.initializer.site.smtp_password'),
             'is_main'            => 1
         ];
 
         $this->initializeCurrency();
         if (
-            config('wk-site.onoff.currency')
+            config('wk-site-mall.onoff.currency')
             && !empty(config('wk-core.class.currency.currency'))
         ) {
             $service = new CurrencyService();
             $data = array_merge($data, [
-                'currency_id'        => config('wk-site.initializer.site.currency_id'),
+                'currency_id'        => config('wk-site-mall.initializer.site.currency_id'),
                 'currency_supported' => $service->getEnabledSettingId()
             ]);
         }
 
-        $site = App::make(config('wk-core.class.site.site'))::create($data);
-        $siteLang = App::make(config('wk-core.class.site.siteLang'))::create([
+        $site = App::make(config('wk-core.class.site-mall.site'))::create($data);
+        $siteLang = App::make(config('wk-core.class.site-mall.siteLang'))::create([
             'morph_type' => get_class($site),
             'morph_id'   => $site->id,
-            'code'       => config('wk-site.initializer.site.language'),
+            'code'       => config('wk-site-mall.initializer.site.language'),
             'key'        => 'name',
-            'value'      => config('wk-site.initializer.site.name'),
+            'value'      => config('wk-site-mall.initializer.site.name'),
             'is_current' => 1
         ]);
-        $this->info(config('wk-core.table.site.sites') .' have been affected.');
-        $this->info(config('wk-core.table.site.sites_lang') .' have been affected.');
+        $this->info(config('wk-core.table.site-mall.sites') .' have been affected.');
+        $this->info(config('wk-core.table.site-mall.sites_lang') .' have been affected.');
         $this->info(config('wk-core.table.morph-image.images') .' have been affected.');
         $this->info(config('wk-core.table.morph-image.images_lang') .' have been affected.');
 
-        if (config('wk-site.initializer.site.default_data.address')) {
+        if (config('wk-site-mall.initializer.site.default_data.address')) {
             $this->initializeAddress('site', $site->id);
         }
-        if (config('wk-site.initializer.site.default_data.email')) {
+        if (config('wk-site-mall.initializer.site.default_data.email')) {
             $this->initializeEmails($site->id, $this->option('path-views-email'), $this->option('template-email'));
         }
-        if (config('wk-site.initializer.site.default_data.navs')) {
+        if (config('wk-site-mall.initializer.site.default_data.navs')) {
             $this->initializeNavs($site->id, $this->option('path-lang-nav'));
         }
-        if (config('wk-site.initializer.site.default_data.cart-channels')) {
+        if (config('wk-site-mall.initializer.site.default_data.cart-channels')) {
             $this->initializeCart($site->id);
         }
         $this->initializeAccount();
@@ -119,28 +119,28 @@ class SiteInitializer extends Command
     public function initializeAddress(string $type, int $id)
     {
         if (
-            config('wk-site.onoff.morph-address')
+            config('wk-site-mall.onoff.morph-address')
             && !empty(config('wk-core.class.morph-address.address'))
         ) {
             if ($type == 'site') {
                 $address = App::make(config('wk-core.class.morph-address.address'))::create([
-                    'morph_type' => config('wk-core.class.site.site'),
+                    'morph_type' => config('wk-core.class.site-mall.site'),
                     'morph_id'   => $id,
-                    'type'       => config('wk-site.initializer.site.address.type'),
-                    'phone'      => config('wk-site.initializer.site.address.phone'),
-                    'email'      => config('wk-site.initializer.site.address.email'),
-                    'area'       => config('wk-site.initializer.site.address.area'),
+                    'type'       => config('wk-site-mall.initializer.site.address.type'),
+                    'phone'      => config('wk-site-mall.initializer.site.address.phone'),
+                    'email'      => config('wk-site-mall.initializer.site.address.email'),
+                    'area'       => config('wk-site-mall.initializer.site.address.area'),
                     'is_main'    => 1
                 ]);
                 $items = ['name', 'address_line1', 'address_line2', 'guide'];
                 foreach ($items as $item) {
-                    if (config('wk-site.initializer.site.address.'.$item)) {
+                    if (config('wk-site-mall.initializer.site.address.'.$item)) {
                         $addressLang = App::make(config('wk-core.class.morph-address.addressLang'))::create([
                             'morph_type' => get_class($address),
                             'morph_id'   => $address->id,
-                            'code'       => config('wk-site.initializer.site.language'),
+                            'code'       => config('wk-site-mall.initializer.site.language'),
                             'key'        => $item,
-                            'value'      => config('wk-site.initializer.site.address.'.$item),
+                            'value'      => config('wk-site-mall.initializer.site.address.'.$item),
                             'is_current' => 1
                         ]);
                     }
@@ -152,21 +152,21 @@ class SiteInitializer extends Command
                 $address = App::make(config('wk-core.class.morph-address.address'))::create([
                     'morph_type' => $morph_type,
                     'morph_id'   => $id,
-                    'type'       => config('wk-site.initializer.admin.address.type'),
-                    'phone'      => config('wk-site.initializer.admin.address.phone'),
-                    'email'      => config('wk-site.initializer.admin.address.email'),
-                    'area'       => config('wk-site.initializer.admin.address.area'),
+                    'type'       => config('wk-site-mall.initializer.admin.address.type'),
+                    'phone'      => config('wk-site-mall.initializer.admin.address.phone'),
+                    'email'      => config('wk-site-mall.initializer.admin.address.email'),
+                    'area'       => config('wk-site-mall.initializer.admin.address.area'),
                     'is_main'    => 1
                 ]);
                 $items = ['name', 'address_line1', 'address_line2'];
                 foreach ($items as $item) {
-                    if (config('wk-site.initializer.admin.address.'.$item)) {
+                    if (config('wk-site-mall.initializer.admin.address.'.$item)) {
                         $addressLang = App::make(config('wk-core.class.morph-address.addressLang'))::create([
                             'morph_type' => get_class($address),
                             'morph_id'   => $address->id,
-                            'code'       => config('wk-site.initializer.site.language'),
+                            'code'       => config('wk-site-mall.initializer.site.language'),
                             'key'        => $item,
-                            'value'      => config('wk-site.initializer.admin.address.'.$item),
+                            'value'      => config('wk-site-mall.initializer.admin.address.'.$item),
                             'is_current' => 1
                         ]);
                     }
@@ -191,15 +191,15 @@ class SiteInitializer extends Command
      */
     public function initializeEmails(int $site_id, string $path, $email_template = 0)
     {
-        $types  = config('wk-core.class.site.emailType')::getCodes();
+        $types  = config('wk-core.class.site-mall.emailType')::getCodes();
         $items = ['name', 'subject', 'style', 'header', 'content', 'footer'];
 
         foreach ($types as $type) {
-            if (config('wk-site.initializer.email.'.$type.'.onoff')) {
-                $email = App::make(config('wk-core.class.site.email'))::create([
+            if (config('wk-site-mall.initializer.email.'.$type.'.onoff')) {
+                $email = App::make(config('wk-core.class.site-mall.email'))::create([
                     'site_id'    => $site_id,
                     'type'       => $type,
-                    'serial'     => config('wk-site.initializer.email.'.$type.'.serial'),
+                    'serial'     => config('wk-site-mall.initializer.email.'.$type.'.serial'),
                     'is_enabled' => 1
                 ]);
                 foreach ($items as $item) {
@@ -209,13 +209,13 @@ class SiteInitializer extends Command
                         if (empty($value))
                             continue;
                     } else {
-                        $value = config('wk-site.initializer.email.'.$type.'.'.$item);
+                        $value = config('wk-site-mall.initializer.email.'.$type.'.'.$item);
                     }
 
-                    $emailLang = App::make(config('wk-core.class.site.emailLang'))::create([
+                    $emailLang = App::make(config('wk-core.class.site-mall.emailLang'))::create([
                         'morph_type' => get_class($email),
                         'morph_id'   => $email->id,
-                        'code'       => config('wk-site.initializer.site.language'),
+                        'code'       => config('wk-site-mall.initializer.site.language'),
                         'key'        => $item,
                         'value'      => $value,
                         'is_current' => 1
@@ -224,8 +224,8 @@ class SiteInitializer extends Command
             }
         }
 
-        $this->info(config('wk-core.table.site.emails') .' have been affected.');
-        $this->info(config('wk-core.table.site.emails_lang') .' have been affected.');
+        $this->info(config('wk-core.table.site-mall.emails') .' have been affected.');
+        $this->info(config('wk-core.table.site-mall.emails_lang') .' have been affected.');
     }
 
     /**
@@ -238,14 +238,14 @@ class SiteInitializer extends Command
     public function initializeNavs(string $site_id, string $path)
     {
         if (
-            config('wk-site.onoff.morph-nav')
+            config('wk-site-mall.onoff.morph-nav')
             && !empty(config('wk-core.class.morph-nav.nav'))
         ) {
-            $items = config('wk-site.initializer.navs');
-            $langs = config('wk-site.initializer.site.language_supported');
+            $items = config('wk-site-mall.initializer.navs');
+            $langs = config('wk-site-mall.initializer.site.language_supported');
             foreach ($items as $key1=>$item) {
                 $nav = App::make(config('wk-core.class.morph-nav.nav'))::create([
-                    'host_type'  => config('wk-core.class.site.site'),
+                    'host_type'  => config('wk-core.class.site-mall.site'),
                     'host_id'    => $site_id,
                     'type'       => 'admin',
                     'identifier' => $key1,
@@ -268,7 +268,7 @@ class SiteInitializer extends Command
                 $i = 0;
                 foreach ($item['data'] as $key2 => $value2) {
                     $nav2 = App::make(config('wk-core.class.morph-nav.nav'))::create([
-                        'host_type'  => config('wk-core.class.site.site'),
+                        'host_type'  => config('wk-core.class.site-mall.site'),
                         'host_id'    => $site_id,
                         'ref_id'     => $nav->id,
                         'type'       => 'admin',
@@ -292,7 +292,7 @@ class SiteInitializer extends Command
                     $j = 0;
                     foreach ($value2['data'] as $key3 => $value3) {
                         $nav3 = App::make(config('wk-core.class.morph-nav.nav'))::create([
-                            'host_type'  => config('wk-core.class.site.site'),
+                            'host_type'  => config('wk-core.class.site-mall.site'),
                             'host_id'    => $site_id,
                             'ref_id'     => $nav2->id,
                             'type'       => 'admin',
@@ -332,14 +332,14 @@ class SiteInitializer extends Command
     public function initializeCart(int $site_id)
     {
         if (
-            config('wk-site.onoff.mall-cart')
+            config('wk-site-mall.onoff.mall-cart')
             && !empty(config('wk-core.class.mall-cart.channel'))
         ) {
-            $items = config('wk-site.initializer.cart-channels');
-            $langs = config('wk-site.initializer.site.language_supported');
+            $items = config('wk-site-mall.initializer.cart-channels');
+            $langs = config('wk-site-mall.initializer.site.language_supported');
             foreach ($items as $key1=>$item) {
                 $channel = App::make(config('wk-core.class.mall-cart.channel'))::create([
-                    'host_type'  => config('wk-core.class.site.site'),
+                    'host_type'  => config('wk-core.class.site-mall.site'),
                     'host_id'    => $site_id,
                     'serial'     => $item['serial'],
                     'identifier' => $key1,
@@ -374,25 +374,25 @@ class SiteInitializer extends Command
     public function initializeAccount()
     {
         if (
-            !empty(config('wk-site.initializer.admin.password'))
-            && config('wk-site.onoff.user')
+            !empty(config('wk-site-mall.initializer.admin.password'))
+            && config('wk-site-mall.onoff.user')
             && !empty(config('wk-core.class.user'))
-            && config('wk-site.onoff.account')
+            && config('wk-site-mall.onoff.account')
             && !empty(config('wk-core.class.account.profile'))
-            && config('wk-site.onoff.role')
+            && config('wk-site-mall.onoff.role')
             && !empty(config('wk-core.class.role.role'))
             && !empty(config('wk-core.class.role.permission'))
         ) {
             $user = App::make(config('wk-core.class.user'))::create([
-                'name'     => config('wk-site.initializer.admin.name'),
-                'email'    => config('wk-site.initializer.admin.email'),
-                'password' => \Hash::make(config('wk-site.initializer.admin.password'))
+                'name'     => config('wk-site-mall.initializer.admin.name'),
+                'email'    => config('wk-site-mall.initializer.admin.email'),
+                'password' => \Hash::make(config('wk-site-mall.initializer.admin.password'))
             ]);
             $profile = App::make(config('wk-core.class.account.profile'))::create([
                 'user_id'     => $user->id,
-                'language'    => config('wk-site.initializer.site.language'),
-                'timezone'    => config('wk-site.initializer.site.timezone'),
-                'currency_id' => config('wk-site.initializer.site.currency_id')
+                'language'    => config('wk-site-mall.initializer.site.language'),
+                'timezone'    => config('wk-site-mall.initializer.site.timezone'),
+                'currency_id' => config('wk-site-mall.initializer.site.currency_id')
             ]);
             if (method_exists($user, 'addresses'))
                 $this->initializeAddress('user', $user->id);
@@ -412,7 +412,7 @@ class SiteInitializer extends Command
                 App::make(config('wk-core.class.role.roleLang'))::create([
                     'morph_type' => get_class($role),
                     'morph_id'   => $role->id,
-                    'code'       => config('wk-site.initializer.site.language'),
+                    'code'       => config('wk-site-mall.initializer.site.language'),
                     'key'        => 'name',
                     'value'      => $item,
                     'is_current' => 1
@@ -446,13 +446,13 @@ class SiteInitializer extends Command
     public function initializeCurrency()
     {
         if (
-            config('wk-site.onoff.currency')
+            config('wk-site-mall.onoff.currency')
             && !empty(config('wk-core.class.currency.currency'))
         ) {
             $items = config('wk-currency.initializer');
             foreach ($items as $item) {
                 $currency = App::make(config('wk-core.class.currency.currency'))::create([
-                    'host_type'     => 'WalkerChiu\Site\Models\Entities\Site',
+                    'host_type'     => 'WalkerChiu\SiteMall\Models\Entities\Site',
                     'host_id'       => 1,
                     'abbreviation'  => $item['abbreviation'],
                     'mark'          => $item['mark'],

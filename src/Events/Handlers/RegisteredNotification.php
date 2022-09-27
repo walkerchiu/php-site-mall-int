@@ -1,16 +1,16 @@
 <?php
 
-namespace WalkerChiu\Site\Events\Handlers;
+namespace WalkerChiu\SiteMall\Events\Handlers;
 
-use WalkerChiu\Site\Events\Registered;
-use WalkerChiu\Site\Events\Handlers\Notification;
+use WalkerChiu\SiteMall\Events\Registered;
+use WalkerChiu\SiteMall\Events\Handlers\Notification;
 
 class RegisteredNotification extends Notification
 {
     /**
      * Handle the event.
      *
-     * @param \WalkerChiu\Site\Events\Registered  $event
+     * @param \WalkerChiu\SiteMall\Events\Registered  $event
      * @return void
      */
     public function handle(Registered $event)
@@ -28,7 +28,7 @@ class RegisteredNotification extends Notification
     /**
      * Handle a job failure.
      *
-     * @param \WalkerChiu\Site\Events\Registered  $event
+     * @param \WalkerChiu\SiteMall\Events\Registered  $event
      * @param \Exception                          $exception
      * @return void
      */

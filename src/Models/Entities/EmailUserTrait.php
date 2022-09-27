@@ -1,15 +1,15 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Entities;
+namespace WalkerChiu\SiteMall\Models\Entities;
 
-use WalkerChiu\Site\Events\Attempting;
-use WalkerChiu\Site\Events\Authenticated;
-use WalkerChiu\Site\Events\AuthFailed;
-use WalkerChiu\Site\Events\EmailVerified;
-use WalkerChiu\Site\Events\PasswordForgot;
-use WalkerChiu\Site\Events\PasswordReset;
-use WalkerChiu\Site\Events\Registered;
-use WalkerChiu\Site\Events\VerifyEmail;
+use WalkerChiu\SiteMall\Events\Attempting;
+use WalkerChiu\SiteMall\Events\Authenticated;
+use WalkerChiu\SiteMall\Events\AuthFailed;
+use WalkerChiu\SiteMall\Events\EmailVerified;
+use WalkerChiu\SiteMall\Events\PasswordForgot;
+use WalkerChiu\SiteMall\Events\PasswordReset;
+use WalkerChiu\SiteMall\Events\Registered;
+use WalkerChiu\SiteMall\Events\VerifyEmail;
 
 trait EmailUserTrait
 {

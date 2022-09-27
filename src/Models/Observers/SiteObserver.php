@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Observers;
+namespace WalkerChiu\SiteMall\Models\Observers;
 
 use WalkerChiu\Currency\Models\Services\CurrencyService;
 
@@ -77,7 +77,7 @@ class SiteObserver
             if (!in_array($entity->timezone, config('wk-core.class.core.timeZone')::getValues()))
                 return false;
         }
-        if (config('wk-site.onoff.currency')) {
+        if (config('wk-site-mall.onoff.currency')) {
             $service = new CurrencyService();
             if (!is_null($entity->currency_id)) {
                 if (!in_array($entity->currency_id, $service->getEnabledSettingId())) {
@@ -93,13 +93,13 @@ class SiteObserver
             }
         }
         if ($entity->is_main) {
-            config('wk-core.class.site.site')
+            config('wk-core.class.site-mall.site')
                 ::withTrashed()
                 ->where('id', '<>', $entity->id)
                 ->update(['is_main' => 0]);
         }
         if (
-            config('wk-core.class.site.site')
+            config('wk-core.class.site-mall.site')
                 ::where('id', '<>', $entity->id)
                 ->where('identifier', $entity->identifier)
                 ->exists()
@@ -145,13 +145,13 @@ class SiteObserver
                             ->forceDelete();
             foreach ($entity->layouts as $layout) {
                 if (
-                    config('wk-site.onoff.morph-category')
+                    config('wk-site-mall.onoff.morph-category')
                     && !empty(config('wk-core.class.morph-category.category'))
                 ) {
                     $layout->categories()->detach();
                 }
                 if (
-                    config('wk-site.onoff.morph-comment')
+                    config('wk-site-mall.onoff.morph-comment')
                     && !empty(config('wk-core.class.morph-comment.comment'))
                 ) {
                     $records = $layout->comments()->withTrashed()->get();
@@ -160,7 +160,7 @@ class SiteObserver
                     }
                 }
                 if (
-                    config('wk-site.onoff.morph-image')
+                    config('wk-site-mall.onoff.morph-image')
                     && !empty(config('wk-core.class.morph-image.image'))
                 ) {
                     $records = $layout->images()->withTrashed()->get();
@@ -169,13 +169,13 @@ class SiteObserver
                     }
                 }
                 if (
-                    config('wk-site.onoff.morph-nav')
+                    config('wk-site-mall.onoff.morph-nav')
                     && !empty(config('wk-core.class.morph-nav.nav'))
                 ) {
                     $layout->navs()->detach();
                 }
                 if (
-                    config('wk-site.onoff.morph-tag')
+                    config('wk-site-mall.onoff.morph-tag')
                     && !empty(config('wk-core.class.morph-tag.tag'))
                     && is_iterable($layout->tags())
                 ) {
@@ -184,7 +184,7 @@ class SiteObserver
             }
 
             if (
-                config('wk-site.onoff.coupons')
+                config('wk-site-mall.onoff.coupons')
                 && !empty(config('wk-core.class.coupon.coupon'))
             ) {
                 $records = $entity->coupons()->withTrashed()->get();
@@ -193,7 +193,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.currency')
+                config('wk-site-mall.onoff.currency')
                 && !empty(config('wk-core.class.currency.currency'))
             ) {
                 $records = $entity->currencies()->withTrashed()->get();
@@ -202,7 +202,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.firewall')
+                config('wk-site-mall.onoff.firewall')
                 && !empty(config('wk-core.class.firewall.setting'))
             ) {
                 $records = $entity->firewalls()->withTrashed()->get();
@@ -211,7 +211,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.mall-stock')
+                config('wk-site-mall.onoff.mall-stock')
                 && !empty(config('wk-core.class.mall-stock.stock'))
             ) {
                 $records = $entity->stocks()->withTrashed()->get();
@@ -220,7 +220,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-address')
+                config('wk-site-mall.onoff.morph-address')
                 && !empty(config('wk-core.class.morph-address.address'))
             ) {
                 $records = $entity->addresses()->withTrashed()->get();
@@ -229,7 +229,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-board')
+                config('wk-site-mall.onoff.morph-board')
                 && !empty(config('wk-core.class.morph-board.board'))
             ) {
                 $records = $entity->boards()->withTrashed()->get();
@@ -238,13 +238,13 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-category')
+                config('wk-site-mall.onoff.morph-category')
                 && !empty(config('wk-core.class.morph-category.category'))
             ) {
                 $entity->categories()->detach();
             }
             if (
-                config('wk-site.onoff.morph-comment')
+                config('wk-site-mall.onoff.morph-comment')
                 && !empty(config('wk-core.class.morph-comment.comment'))
             ) {
                 $records = $entity->comments()->withTrashed()->get();
@@ -253,7 +253,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-image')
+                config('wk-site-mall.onoff.morph-image')
                 && !empty(config('wk-core.class.morph-image.image'))
             ) {
                 $records = $entity->images()->withTrashed()->get();
@@ -262,13 +262,13 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-nav')
+                config('wk-site-mall.onoff.morph-nav')
                 && !empty(config('wk-core.class.morph-nav.nav'))
             ) {
                 $entity->navs()->detach();
             }
             if (
-                config('wk-site.onoff.morph-registration')
+                config('wk-site-mall.onoff.morph-registration')
                 && !empty(config('wk-core.class.morph-registration.registration'))
             ) {
                 $records = $entity->registrations()->withTrashed()->get();
@@ -277,14 +277,14 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-tag')
+                config('wk-site-mall.onoff.morph-tag')
                 && !empty(config('wk-core.class.morph-tag.tag'))
                 && is_iterable($entity->tags())
             ) {
                 $entity->tags()->detach();
             }
             if (
-                config('wk-site.onoff.morph-link')
+                config('wk-site-mall.onoff.morph-link')
                 && !empty(config('wk-core.class.morph-link.link'))
             ) {
                 $records = $entity->links()->withTrashed()->get();
@@ -293,7 +293,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.newsletter')
+                config('wk-site-mall.onoff.newsletter')
                 && !empty(config('wk-core.class.newsletter.article'))
             ) {
                 $records = $entity->newsletters()->withTrashed()->get();
@@ -302,7 +302,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.payment')
+                config('wk-site-mall.onoff.payment')
                 && !empty(config('wk-core.class.payment.payment'))
             ) {
                 $records = $entity->payments()->withTrashed()->get();
@@ -311,7 +311,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.point')
+                config('wk-site-mall.onoff.point')
                 && !empty(config('wk-core.class.point.setting'))
             ) {
                 $records = $entity->points()->withTrashed()->get();
@@ -320,7 +320,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.role')
+                config('wk-site-mall.onoff.role')
                 && !empty(config('wk-core.class.role.role'))
             ) {
                 $records = $entity->roles()->withTrashed()->get();
@@ -329,7 +329,7 @@ class SiteObserver
                 }
             }
             if (
-                config('wk-site.onoff.shipment')
+                config('wk-site-mall.onoff.shipment')
                 && !empty(config('wk-core.class.shipment.shipment'))
             ) {
                 $records = $entity->shipments()->withTrashed()->get();
@@ -339,7 +339,7 @@ class SiteObserver
             }
         }
 
-        if (!config('wk-site.soft_delete')) {
+        if (!config('wk-site-mall.soft_delete')) {
             $entity->forceDelete();
         }
     }
@@ -353,7 +353,7 @@ class SiteObserver
     public function restoring($entity)
     {
         if (
-            config('wk-core.class.site.site')
+            config('wk-core.class.site-mall.site')
                 ::where('id', '<>', $entity->id)
                 ->where('identifier', $entity->identifier)
                 ->exists()

@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Repositories;
+namespace WalkerChiu\SiteMall\Models\Repositories;
 
 use Illuminate\Support\Facades\App;
 use WalkerChiu\Core\Models\Forms\FormTrait;
@@ -29,7 +29,7 @@ class SiteRepository extends Repository
      */
     public function __construct()
     {
-        $this->instance = App::make(config('wk-core.class.site.site'));
+        $this->instance = App::make(config('wk-core.class.site-mall.site'));
     }
 
     /**
@@ -85,13 +85,13 @@ class SiteRepository extends Repository
                                                  ->ofCode($code);
                                 })
                                 ->when(
-                                    config('wk-site.onoff.morph-tag')
+                                    config('wk-site-mall.onoff.morph-tag')
                                     && !empty(config('wk-core.class.morph-tag.tag'))
                                 , function ($query) {
                                     return $query->with(['tags', 'tags.langs']);
                                 })
                                 ->when(
-                                    config('wk-site.onoff.morph-address')
+                                    config('wk-site-mall.onoff.morph-address')
                                     && !empty(config('wk-core.class.morph-address.address'))
                                 , function ($query) {
                                     return $query->with(['addresses', 'addresses.langs']);
@@ -207,11 +207,11 @@ class SiteRepository extends Repository
                                 ->orderBy('updated_at', 'DESC');
 
         if ($auto_packing) {
-            $factory = new PackagingFactory(config('wk-site.output_format'), config('wk-site.pagination.pageName'), config('wk-site.pagination.perPage'));
+            $factory = new PackagingFactory(config('wk-site-mall.output_format'), config('wk-site-mall.pagination.pageName'), config('wk-site-mall.pagination.perPage'));
             $factory->setFieldsLang(['name', 'description', 'keywords', 'remarks']);
 
-            if (in_array(config('wk-site.output_format'), ['array', 'array_pagination'])) {
-                switch (config('wk-site.output_format')) {
+            if (in_array(config('wk-site-mall.output_format'), ['array', 'array_pagination'])) {
+                switch (config('wk-site-mall.output_format')) {
                     case "array":
                         $entities = $factory->toCollection($repository);
                         // no break
@@ -249,13 +249,13 @@ class SiteRepository extends Repository
                                         $query->ofCurrent();
                                     }, 'layouts'])
                                 ->when(
-                                    config('wk-site.onoff.morph-tag')
+                                    config('wk-site-mall.onoff.morph-tag')
                                     && !empty(config('wk-core.class.morph-tag.tag'))
                                 , function ($query) {
                                     return $query->with(['tags', 'tags.langs']);
                                 })
                                 ->when(
-                                    config('wk-site.onoff.morph-address')
+                                    config('wk-site-mall.onoff.morph-address')
                                     && !empty(config('wk-core.class.morph-address.address'))
                                 , function ($query) {
                                     return $query->with(['addresses', 'addresses.langs']);
@@ -283,7 +283,7 @@ class SiteRepository extends Repository
     public function show($instance, $code): array
     {
         $service = new CurrencyService();
-        $currencies = $service->getEnabledSetting(config('wk-core.class.site.site'), $instance->id, $code);
+        $currencies = $service->getEnabledSetting(config('wk-core.class.site-mall.site'), $instance->id, $code);
 
         $data = [
             'id' => $instance->id,
@@ -370,12 +370,12 @@ class SiteRepository extends Repository
             'host'                 => $instance->smtp_host,
             'port'                 => $instance->smtp_port,
             'encryption'           => $instance->smtp_encryption,
-            'encryption_supported' => config('wk-site.smtp.encryption_supported'),
+            'encryption_supported' => config('wk-site-mall.smtp.encryption_supported'),
             'username'             => $instance->smtp_username,
             'password'             => null
         ];
 
-        if (config('wk-site.onoff.morph-comment'))
+        if (config('wk-site-mall.onoff.morph-comment'))
             $data['comments'] = $this->getlistOfComments($instance);
 
         return $data;
@@ -389,7 +389,7 @@ class SiteRepository extends Repository
     public function getEmailSetting($instance, string $language): array
     {
         $data = [];
-        foreach (config('wk-site.initializer.email') as $key => $type) {
+        foreach (config('wk-site-mall.initializer.email') as $key => $type) {
             if ($type['onoff']) {
                 $data = array_merge($data, [$key => [
                     'now'       => $instance->email($key) ? $instance->email($key)->id : '',
@@ -471,7 +471,7 @@ class SiteRepository extends Repository
         $service = new CurrencyService();
         $items = [
             'currency_id'        => $instance->currency_id,
-            'currency_supported' => $service->getEnabledSetting(config('wk-core.class.site.site'),
+            'currency_supported' => $service->getEnabledSetting(config('wk-core.class.site-mall.site'),
                                                                 $instance->id,
                                                                 $language)
         ];

@@ -1,9 +1,9 @@
 <?php
 
-namespace WalkerChiu\Site\Events;
+namespace WalkerChiu\SiteMall\Events;
 
 use Illuminate\Queue\SerializesModels;
-use WalkerChiu\Site\Events\EventTrait;
+use WalkerChiu\SiteMall\Events\EventTrait;
 
 class CurrentDeviceLogout
 {

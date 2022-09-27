@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Entities;
+namespace WalkerChiu\SiteMall\Models\Entities;
 
 use WalkerChiu\Core\Models\Entities\Entity;
 use WalkerChiu\Core\Models\Entities\LangTrait;
@@ -21,7 +21,7 @@ class Layout extends Entity
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = config('wk-core.table.site.layouts');
+        $this->table = config('wk-core.table.site-mall.layouts');
 
         $this->fillable = array_merge($this->fillable, [
             'site_id',
@@ -49,11 +49,11 @@ class Layout extends Entity
     {
         if (
             config('wk-core.onoff.core-lang_core')
-            || config('wk-site.onoff.core-lang_core')
+            || config('wk-site-mall.onoff.core-lang_core')
         ) {
             return config('wk-core.class.core.langCore');
         } else {
-            return config('wk-core.class.site.layoutLang');
+            return config('wk-core.class.site-mall.layoutLang');
         }
     }
 
@@ -64,11 +64,11 @@ class Layout extends Entity
     {
         if (
             config('wk-core.onoff.core-lang_core')
-            || config('wk-site.onoff.core-lang_core')
+            || config('wk-site-mall.onoff.core-lang_core')
         ) {
             return $this->langsCore();
         } else {
-            return $this->hasMany(config('wk-core.class.site.layoutLang'), 'morph_id', 'id');
+            return $this->hasMany(config('wk-core.class.site-mall.layoutLang'), 'morph_id', 'id');
         }
     }
 
@@ -77,7 +77,7 @@ class Layout extends Entity
      */
     public function site()
     {
-        return $this->belongsTo(config('wk-core.class.site.site'), 'site_id', 'id');
+        return $this->belongsTo(config('wk-core.class.site-mall.site'), 'site_id', 'id');
     }
 
     /**

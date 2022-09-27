@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Services;
+namespace WalkerChiu\SiteMall\Models\Services;
 
 use WalkerChiu\Core\Models\Exceptions\NotMailableException;
 

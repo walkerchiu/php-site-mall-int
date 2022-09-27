@@ -131,8 +131,8 @@ return [
     |
     */
     'command' => [
-        'cleaner'     => 'WalkerChiu\Site\Console\Commands\SiteCleaner',
-        'initializer' => 'WalkerChiu\Site\Console\Commands\SiteInitializer'
+        'cleaner'     => 'WalkerChiu\SiteMall\Console\Commands\SiteMallCleaner',
+        'initializer' => 'WalkerChiu\SiteMall\Console\Commands\SiteMallInitializer'
     ],
 
     /*

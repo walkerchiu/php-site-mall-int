@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Repositories;
+namespace WalkerChiu\SiteMall\Models\Repositories;
 
 use Illuminate\Support\Facades\App;
 use WalkerChiu\Core\Models\Forms\FormTrait;
@@ -26,7 +26,7 @@ class LayoutRepository extends Repository
      */
     public function __construct()
     {
-        $this->instance = App::make(config('wk-core.class.site.layout'));
+        $this->instance = App::make(config('wk-core.class.site-mall.layout'));
     }
 
     /**
@@ -52,7 +52,7 @@ class LayoutRepository extends Repository
                                                  ->ofCode($code);
                                 })
                                 ->when(
-                                    config('wk-site.onoff.morph-tag')
+                                    config('wk-site-mall.onoff.morph-tag')
                                     && !empty(config('wk-core.class.morph-tag.tag'))
                                 , function ($query) {
                                     return $query->with(['tags', 'tags.langs']);
@@ -125,11 +125,11 @@ class LayoutRepository extends Repository
                                 ->orderBy('updated_at', 'DESC');
 
         if ($auto_packing) {
-            $factory = new PackagingFactory(config('wk-site.output_format'), config('wk-site.pagination.pageName'), config('wk-site.pagination.perPage'));
+            $factory = new PackagingFactory(config('wk-site-mall.output_format'), config('wk-site-mall.pagination.pageName'), config('wk-site-mall.pagination.perPage'));
             $factory->setFieldsLang(['name', 'description', 'keywords', 'content']);
 
-            if (in_array(config('wk-site.output_format'), ['array', 'array_pagination'])) {
-                switch (config('wk-site.output_format')) {
+            if (in_array(config('wk-site-mall.output_format'), ['array', 'array_pagination'])) {
+                switch (config('wk-site-mall.output_format')) {
                     case "array":
                         $entities = $factory->toCollection($repository);
                         // no break
@@ -166,7 +166,7 @@ class LayoutRepository extends Repository
         $data = [
             'id' => $instance ? $instance->id : '',
             'constant' => [
-                'layoutType' => config('wk-core.class.site.layoutType')::options(true)
+                'layoutType' => config('wk-core.class.site-mall.layoutType')::options(true)
             ],
             'basic'    => [],
             'options'  => $instance ? $instance->options : null,
@@ -216,7 +216,7 @@ class LayoutRepository extends Repository
             }
         }
 
-        if (config('wk-site.onoff.morph-comment'))
+        if (config('wk-site-mall.onoff.morph-comment'))
             $data['comments'] = $this->getlistOfComments($instance);
 
         return $data;

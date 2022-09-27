@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Forms;
+namespace WalkerChiu\SiteMall\Models\Forms;
 
 use Illuminate\Support\Facades\Request;
 use WalkerChiu\Core\Models\Forms\FormRequest;
@@ -62,7 +62,7 @@ class SiteSMTPFormRequest extends FormRequest
             $request->isMethod('put')
             && isset($request->id)
         ) {
-            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site.sites').',id']]);
+            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.sites').',id']]);
         }
 
         return $rules;

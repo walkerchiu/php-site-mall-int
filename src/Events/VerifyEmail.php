@@ -1,11 +1,11 @@
 <?php
 
-namespace WalkerChiu\Site\Events;
+namespace WalkerChiu\SiteMall\Events;
 
 use Illuminate\Auth\Events\Registered as BaseClass;
 use Illuminate\Support\Facades\URL;
 use Carbon\Carbon;
-use WalkerChiu\Site\Events\EventTrait;
+use WalkerChiu\SiteMall\Events\EventTrait;
 
 class VerifyEmail extends BaseClass
 {
@@ -36,7 +36,7 @@ class VerifyEmail extends BaseClass
     public function __construct($user)
     {
         $this->user = $user;
-        $this->link = $this->verificationUrl($user, config('wk-site.client.mode'));
+        $this->link = $this->verificationUrl($user, config('wk-site-mall.client.mode'));
 
         $this->site = $this->getSite();
     }
@@ -63,11 +63,11 @@ class VerifyEmail extends BaseClass
             $payload = $this->getToken($notifiable);
     
             if (empty(config('lighthouse-graphql-passport.verify_email.base_url')))
-                return config('wk-site.client.url') .'/'. config('wk-site.client.link.email-verify') .'?token='. $payload;
+                return config('wk-site-mall.client.url') .'/'. config('wk-site-mall.client.link.email-verify') .'?token='. $payload;
 
             return config('lighthouse-graphql-passport.verify_email.base_url') .'?token='. $payload;
         } else {
-            return config('wk-site.client.url') .'/'. config('wk-site.client.link.email-verify') .'?token='. sha1($notifiable->getEmailForVerification());
+            return config('wk-site-mall.client.url') .'/'. config('wk-site-mall.client.link.email-verify') .'?token='. sha1($notifiable->getEmailForVerification());
         }
     }
 

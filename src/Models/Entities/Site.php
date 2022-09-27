@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Entities;
+namespace WalkerChiu\SiteMall\Models\Entities;
 
 use WalkerChiu\Core\Models\Entities\Entity;
 use WalkerChiu\Core\Models\Entities\LangTrait;
@@ -23,7 +23,7 @@ class Site extends Entity
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = config('wk-core.table.site.sites');
+        $this->table = config('wk-core.table.site-mall.sites');
 
         $this->fillable = array_merge($this->fillable, [
             'type',
@@ -64,11 +64,11 @@ class Site extends Entity
     {
         if (
             config('wk-core.onoff.core-lang_core')
-            || config('wk-site.onoff.core-lang_core')
+            || config('wk-site-mall.onoff.core-lang_core')
         ) {
             return config('wk-core.class.core.langCore');
         } else {
-            return config('wk-core.class.site.siteLang');
+            return config('wk-core.class.site-mall.siteLang');
         }
     }
 
@@ -79,11 +79,11 @@ class Site extends Entity
     {
         if (
             config('wk-core.onoff.core-lang_core')
-            || config('wk-site.onoff.core-lang_core')
+            || config('wk-site-mall.onoff.core-lang_core')
         ) {
             return $this->langsCore();
         } else {
-            return $this->hasMany(config('wk-core.class.site.siteLang'), 'morph_id', 'id');
+            return $this->hasMany(config('wk-core.class.site-mall.siteLang'), 'morph_id', 'id');
         }
     }
 
@@ -94,7 +94,7 @@ class Site extends Entity
      */
     public function layouts($type = null, $is_enabled = null)
     {
-        return $this->hasMany(config('wk-core.class.site.layout'), 'site_id', 'id')
+        return $this->hasMany(config('wk-core.class.site-mall.layout'), 'site_id', 'id')
                     ->when($type, function ($query, $type) {
                         return $query->where('type', $type);
                     })
@@ -110,7 +110,7 @@ class Site extends Entity
      */
     public function emails($type = null, $is_enabled = null)
     {
-        return $this->hasMany(config('wk-core.class.site.email'), 'site_id', 'id')
+        return $this->hasMany(config('wk-core.class.site-mall.email'), 'site_id', 'id')
                     ->when($type, function ($query, $type) {
                         return $query->where('type', $type);
                     })
@@ -125,7 +125,7 @@ class Site extends Entity
      */
     public function email(string $type)
     {
-        return $this->HasOne(config('wk-core.class.site.email'), 'site_id', 'id')
+        return $this->HasOne(config('wk-core.class.site-mall.email'), 'site_id', 'id')
                     ->ofEnabled()
                     ->where('type', $type)
                     ->first();

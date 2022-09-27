@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Constants;
+namespace WalkerChiu\SiteMall\Models\Constants;
 
 /**
  * @license MIT
