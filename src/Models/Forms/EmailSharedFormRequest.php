@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Forms;
+namespace WalkerChiu\SiteMall\Models\Forms;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -55,11 +55,11 @@ class EmailSharedFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'email_register_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_login_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_reset_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_checkout_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_order_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
+            'email_register_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_login_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_reset_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_checkout_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_order_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
             'theme'  => '',
             'style'  => '',
             'header' => '',
@@ -71,7 +71,7 @@ class EmailSharedFormRequest extends FormRequest
             $request->isMethod('put')
             && isset($request->id)
         ) {
-            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site.emails').',id']]);
+            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.emails').',id']]);
         }
 
         return $rules;

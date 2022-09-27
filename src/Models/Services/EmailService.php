@@ -1,14 +1,14 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Services;
+namespace WalkerChiu\SiteMall\Models\Services;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\App;
 use WalkerChiu\Core\Models\Exceptions\NotFoundEntityException;
 use WalkerChiu\Core\Models\Exceptions\NotMailableException;
 use WalkerChiu\Core\Models\Services\CheckExistTrait;
-use WalkerChiu\Site\Models\Services\EmailSenderJob;
-use WalkerChiu\Site\Models\Services\SiteService;
+use WalkerChiu\SiteMall\Models\Services\EmailSenderJob;
+use WalkerChiu\SiteMall\Models\Services\SiteService;
 
 class EmailService
 {
@@ -26,7 +26,7 @@ class EmailService
      */
     public function __construct()
     {
-        $this->repository = App::make(config('wk-core.class.site.emailRepository'));
+        $this->repository = App::make(config('wk-core.class.site-mall.emailRepository'));
         $this->channels = [];
     }
 
@@ -110,7 +110,7 @@ class EmailService
         if (is_iterable($receiver))
             return categorizeReceivers($site, $receiver);
 
-        if (config('wk-site.onoff.account')) {
+        if (config('wk-site-mall.onoff.account')) {
             if (array_key_exists($receiver->profile->language, $this->channels))
                 array_push($this->channels[$receiver->profile->language], $receiver);
             else
@@ -248,7 +248,7 @@ class EmailService
 
         if (
             $addressTypes != 'user'
-            && config('wk-site.onoff.morph-address')
+            && config('wk-site-mall.onoff.morph-address')
         ) {
             $address = null;
             if (is_string($addressTypes))
@@ -273,7 +273,7 @@ class EmailService
                     ];
                 } else {
                     if (
-                        config('wk-site.onoff.account')
+                        config('wk-site-mall.onoff.account')
                         && $entity->profile
                         && method_exists($entity->profile, 'addresses')
                     ) {

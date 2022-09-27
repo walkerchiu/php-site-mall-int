@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Entities;
+namespace WalkerChiu\SiteMall\Models\Entities;
 
 use WalkerChiu\Core\Models\Entities\Lang;
 
@@ -14,7 +14,7 @@ class EmailLang extends Lang
      */
     public function __construct(array $attributes = [])
     {
-        $this->table = config('wk-core.table.site.emails_lang');
+        $this->table = config('wk-core.table.site-mall.emails_lang');
 
         parent::__construct($attributes);
     }

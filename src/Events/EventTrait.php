@@ -1,8 +1,8 @@
 <?php
 
-namespace WalkerChiu\Site\Events;
+namespace WalkerChiu\SiteMall\Events;
 
-use WalkerChiu\Site\Models\Services\SiteService;
+use WalkerChiu\SiteMall\Models\Services\SiteService;
 
 trait EventTrait
 {

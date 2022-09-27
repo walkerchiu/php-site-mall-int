@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Observers;
+namespace WalkerChiu\SiteMall\Models\Observers;
 
 class LayoutObserver
 {
@@ -68,7 +68,7 @@ class LayoutObserver
     public function saving($entity)
     {
         if (
-            config('wk-core.class.site.layout')
+            config('wk-core.class.site-mall.layout')
                 ::where('id', '<>', $entity->id)
                 ->where('site_id', $entity->site_id)
                 ->where('identifier', $entity->identifier)
@@ -113,13 +113,13 @@ class LayoutObserver
             $entity->langs()->withTrashed()
                             ->forceDelete();
             if (
-                config('wk-site.onoff.morph-category')
+                config('wk-site-mall.onoff.morph-category')
                 && !empty(config('wk-core.class.morph-category.category'))
             ) {
                 $entity->categories()->detach();
             }
             if (
-                config('wk-site.onoff.morph-comment')
+                config('wk-site-mall.onoff.morph-comment')
                 && !empty(config('wk-core.class.morph-comment.comment'))
             ) {
                 $records = $entity->comments()->withTrashed()->get();
@@ -128,7 +128,7 @@ class LayoutObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-image')
+                config('wk-site-mall.onoff.morph-image')
                 && !empty(config('wk-core.class.morph-image.image'))
             ) {
                 $records = $entity->images()->withTrashed()->get();
@@ -137,13 +137,13 @@ class LayoutObserver
                 }
             }
             if (
-                config('wk-site.onoff.morph-nav')
+                config('wk-site-mall.onoff.morph-nav')
                 && !empty(config('wk-core.class.morph-nav.nav'))
             ) {
                 $entity->navs()->detach();
             }
             if (
-                config('wk-site.onoff.morph-tag')
+                config('wk-site-mall.onoff.morph-tag')
                 && !empty(config('wk-core.class.morph-tag.tag'))
                 && is_iterable($entity->tags())
             ) {
@@ -151,7 +151,7 @@ class LayoutObserver
             }
         }
 
-        if (!config('wk-site.soft_delete')) {
+        if (!config('wk-site-mall.soft_delete')) {
             $entity->forceDelete();
         }
     }
@@ -165,7 +165,7 @@ class LayoutObserver
     public function restoring($entity)
     {
         if (
-            config('wk-core.class.site.layout')
+            config('wk-core.class.site-mall.layout')
                 ::where('id', '<>', $entity->id)
                 ->where('site_id', $entity->site_id)
                 ->where('identifier', $entity->identifier)

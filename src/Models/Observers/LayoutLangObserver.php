@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Observers;
+namespace WalkerChiu\SiteMall\Models\Observers;
 
 class LayoutLangObserver
 {
@@ -35,7 +35,7 @@ class LayoutLangObserver
     public function created($entity)
     {
         $query =
-            config('wk-core.class.site.layoutLang')
+            config('wk-core.class.site-mall.layoutLang')
                 ::withTrashed()
                 ->where('morph_type', $entity->morph_type)
                 ->where('morph_id', $entity->morph_id)
@@ -44,10 +44,10 @@ class LayoutLangObserver
                 ->where('id', '<>', $entity->id);
 
         if (
-            config('wk-site.soft_delete')
+            config('wk-site-mall.soft_delete')
             && (
                 config('wk-core.lang_log')
-                || config('wk-site.lang_log')
+                || config('wk-site-mall.lang_log')
             )
         ) {
             $query->update(['is_current' => 0]);

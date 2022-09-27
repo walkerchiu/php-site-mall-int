@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Providers;
+namespace WalkerChiu\SiteMall\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as BaseEventServiceProvider;
 
@@ -20,7 +20,7 @@ class EventServiceProvider extends BaseEventServiceProvider
      * @var Array
      */
     protected $subscribe = [
-        'WalkerChiu\Site\Events\Subscribers\UserEventSubscriber',
+        'WalkerChiu\SiteMall\Events\Subscribers\UserEventSubscriber',
     ];
 
     /**

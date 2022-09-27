@@ -1,13 +1,13 @@
-# php-site-int
+# php-site-mall-int
 
-php-site-int is a Laravel library for dealing with site management.
+php-site-mall-int is a Laravel library for dealing with site management.
 
 ## Installation
 
-Use the package manager [composer](https://getcomposer.org/download/) to install php-site-int.
+Use the package manager [composer](https://getcomposer.org/download/) to install php-site-mall-int.
 
 ``` bash
-composer require walkerchiu/php-site-int
+composer require walkerchiu/php-site-mall-int
 ```
 
 ## Usage
@@ -21,14 +21,14 @@ composer require walkerchiu/php-site-int
 php artisan vendor:publish
 
 # Overwrite default settings
-vi config/wk-site.php
+vi config/wk-site-mall.php
 
 # Overwrite translations
-cd resources/lang/vendor/php-site
+cd resources/lang/vendor/php-site-mall
 vi ...
 
 # Overwrite views
-cd resources/views/vendor/php-site
+cd resources/views/vendor/php-site-mall
 vi ...
 
 # See migrations
@@ -76,7 +76,7 @@ You can view the source code to understand the methods provided by these classes
 
 # Use directly
 # You can find more settings in config/wk-core.php
-use WalkerChiu\Site\Models\Entities\Site
+use WalkerChiu\SiteMall\Models\Entities\Site
 
 Site::all();
 ```
@@ -88,7 +88,7 @@ Site::all();
 # You can find more settings in config/wk-core.php
 use Illuminate\Support\Facades\App;
 
-App::make(config('wk-core.class.site.site'));
+App::make(config('wk-core.class.site-mall.site'));
 ```
 
 #### FormRequest
@@ -99,12 +99,12 @@ App::make(config('wk-core.class.site.site'));
 # controller
 
 # You can find more information in Models/Forms folder
-use WalkerChiu\Site\Models\Forms\SiteFormRequest
+use WalkerChiu\SiteMall\Models\Forms\SiteFormRequest
 
 /**
  * Store a newly created resource in storage.
  *
- * @param  \WalkerChiu\Site\Models\Forms\SiteFormRequest  $request
+ * @param  \WalkerChiu\SiteMall\Models\Forms\SiteFormRequest  $request
  * @return \Illuminate\Http\Response
  */
 public function store(SiteFormRequest $request)
@@ -134,10 +134,10 @@ Route::group(['middleware' => ['wkSiteEnable']], function() {
 # CLI
 
 # Truncate all tables of this package
-php artisan command:SiteCleaner
+php artisan command:SiteMallCleaner
 
 # Initialize the site
-php artisan command:SiteInitializer
+php artisan command:SiteMallInitializer
 ```
 
 ## Contributing

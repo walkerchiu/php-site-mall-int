@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Repositories;
+namespace WalkerChiu\SiteMall\Models\Repositories;
 
 use Illuminate\Support\Facades\App;
 use WalkerChiu\Core\Models\Forms\FormTrait;
@@ -24,7 +24,7 @@ class EmailRepository extends Repository
      */
     public function __construct()
     {
-        $this->instance = App::make(config('wk-core.class.site.email'));
+        $this->instance = App::make(config('wk-core.class.site-mall.email'));
     }
 
     /**
@@ -84,11 +84,11 @@ class EmailRepository extends Repository
                                 ->orderBy('updated_at', 'DESC');
 
         if ($auto_packing) {
-            $factory = new PackagingFactory(config('wk-site.output_format'), config('wk-site.pagination.pageName'), config('wk-site.pagination.perPage'));
+            $factory = new PackagingFactory(config('wk-site-mall.output_format'), config('wk-site-mall.pagination.pageName'), config('wk-site-mall.pagination.perPage'));
             $factory->setFieldsLang(['name', 'description', 'subject', 'content']);
 
-            if (in_array(config('wk-site.output_format'), ['array', 'array_pagination'])) {
-                switch (config('wk-site.output_format')) {
+            if (in_array(config('wk-site-mall.output_format'), ['array', 'array_pagination'])) {
+                switch (config('wk-site-mall.output_format')) {
                     case "array":
                         $entities = $factory->toCollection($repository);
                         // no break

@@ -4,11 +4,11 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWkSiteTable extends Migration
+class CreateWkSiteMallTable extends Migration
 {
     public function up()
     {
-        Schema::create(config('wk-core.table.site.sites'), function (Blueprint $table) {
+        Schema::create(config('wk-core.table.site-mall.sites'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('type')->nullable();
             $table->string('serial')->nullable();
@@ -53,18 +53,18 @@ class CreateWkSiteTable extends Migration
             $table->index('is_enabled');
         });
         if (
-            config('wk-site.onoff.currency')
+            config('wk-site-mall.onoff.currency')
             && Schema::hasTable(config('wk-core.table.currency.currencies'))
         ) {
-            Schema::table(config('wk-core.table.site.sites'), function (Blueprint $table) {
+            Schema::table(config('wk-core.table.site-mall.sites'), function (Blueprint $table) {
                 $table->foreign('currency_id')->references('id')
                       ->on(config('wk-core.table.currency.currencies'))
                       ->onDelete('set null')
                       ->onUpdate('cascade');
             });
         }
-        if (!config('wk-site.onoff.core-lang_core')) {
-            Schema::create(config('wk-core.table.site.sites_lang'), function (Blueprint $table) {
+        if (!config('wk-site-mall.onoff.core-lang_core')) {
+            Schema::create(config('wk-core.table.site-mall.sites_lang'), function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->morphs('morph');
                 $table->unsignedBigInteger('user_id')->nullable();
@@ -83,7 +83,7 @@ class CreateWkSiteTable extends Migration
             });
         }
 
-        Schema::create(config('wk-core.table.site.layouts'), function (Blueprint $table) {
+        Schema::create(config('wk-core.table.site-mall.layouts'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('site_id');
             $table->string('type', 10);
@@ -100,7 +100,7 @@ class CreateWkSiteTable extends Migration
             $table->softDeletes();
 
             $table->foreign('site_id')->references('id')
-                  ->on(config('wk-core.table.site.sites'))
+                  ->on(config('wk-core.table.site-mall.sites'))
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
@@ -109,8 +109,8 @@ class CreateWkSiteTable extends Migration
             $table->index('is_highlighted');
             $table->index('is_enabled');
         });
-        if (!config('wk-site.onoff.core-lang_core')) {
-            Schema::create(config('wk-core.table.site.layouts_lang'), function (Blueprint $table) {
+        if (!config('wk-site-mall.onoff.core-lang_core')) {
+            Schema::create(config('wk-core.table.site-mall.layouts_lang'), function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->morphs('morph');
                 $table->unsignedBigInteger('user_id')->nullable();
@@ -129,7 +129,7 @@ class CreateWkSiteTable extends Migration
             });
         }
 
-        Schema::create(config('wk-core.table.site.emails'), function (Blueprint $table) {
+        Schema::create(config('wk-core.table.site-mall.emails'), function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('site_id');
             $table->string('type', 20);
@@ -140,15 +140,15 @@ class CreateWkSiteTable extends Migration
             $table->softDeletes();
 
             $table->foreign('site_id')->references('id')
-                  ->on(config('wk-core.table.site.sites'))
+                  ->on(config('wk-core.table.site-mall.sites'))
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
 
             $table->index('serial');
             $table->index('is_enabled');
         });
-        if (!config('wk-site.onoff.core-lang_core')) {
-            Schema::create(config('wk-core.table.site.emails_lang'), function (Blueprint $table) {
+        if (!config('wk-site-mall.onoff.core-lang_core')) {
+            Schema::create(config('wk-core.table.site-mall.emails_lang'), function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->morphs('morph');
                 $table->unsignedBigInteger('user_id')->nullable();
@@ -169,11 +169,11 @@ class CreateWkSiteTable extends Migration
     }
 
     public function down() {
-        Schema::dropIfExists(config('wk-core.table.site.emails_lang'));
-        Schema::dropIfExists(config('wk-core.table.site.emails'));
-        Schema::dropIfExists(config('wk-core.table.site.layouts_lang'));
-        Schema::dropIfExists(config('wk-core.table.site.layouts'));
-        Schema::dropIfExists(config('wk-core.table.site.sites_lang'));
-        Schema::dropIfExists(config('wk-core.table.site.sites'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.emails_lang'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.emails'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.layouts_lang'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.layouts'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.sites_lang'));
+        Schema::dropIfExists(config('wk-core.table.site-mall.sites'));
     }
 }

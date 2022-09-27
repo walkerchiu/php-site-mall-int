@@ -1,5 +1,5 @@
 {
-    "name": "walkerchiu/php-site-int",
+    "name": "walkerchiu/php-site-mall-int",
     "type": "library",
     "authors": [
         {
@@ -39,18 +39,18 @@
     },
     "autoload": {
         "psr-4": {
-            "WalkerChiu\\Site\\": "src/"
+            "WalkerChiu\\SiteMall\\": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "WalkerChiu\\Site\\SiteServiceProvider"
+                "WalkerChiu\\SiteMall\\SiteMallServiceProvider"
             ],
             "aliases": {
-                "Site":   "WalkerChiu\\Site\\Models\\Entities\\Site",
-                "Email":  "WalkerChiu\\Site\\Models\\Entities\\Email",
-                "Layout": "WalkerChiu\\Site\\Models\\Entities\\Layout"
+                "Site":   "WalkerChiu\\SiteMall\\Models\\Entities\\Site",
+                "Email":  "WalkerChiu\\SiteMall\\Models\\Entities\\Email",
+                "Layout": "WalkerChiu\\SiteMall\\Models\\Entities\\Layout"
             }
         }
     },

@@ -1,8 +1,8 @@
 <?php
 
-namespace WalkerChiu\Site\Events\Handlers;
+namespace WalkerChiu\SiteMall\Events\Handlers;
 
-use WalkerChiu\Site\Models\Services\EmailService;
+use WalkerChiu\SiteMall\Models\Services\EmailService;
 
 abstract class Notification
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Forms;
+namespace WalkerChiu\SiteMall\Models\Forms;
 
 use Illuminate\Support\Facades\Request;
 use Illuminate\Validation\Rule;
@@ -61,8 +61,8 @@ class EmailFormRequest extends FormRequest
     public function rules()
     {
         $rules = [
-            'site_id'     => ['required','integer','min:1','exists:'.config('wk-core.table.site.sites').',id'],
-            'type'        => ['required', Rule::in(config('wk-core.class.site.emailType')::getCodes())],
+            'site_id'     => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.sites').',id'],
+            'type'        => ['required', Rule::in(config('wk-core.class.site-mall.emailType')::getCodes())],
             'serial'      => '',
             'is_enabled'  => 'boolean',
 
@@ -71,11 +71,11 @@ class EmailFormRequest extends FormRequest
             'subject'     => 'required|string|max:255',
             'content'     => 'required',
 
-            'email_register_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_login_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_reset_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_checkout_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id'],
-            'email_order_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site.emails').',id']
+            'email_register_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_login_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_reset_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_checkout_id' => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id'],
+            'email_order_id'    => ['nullable', 'integer', 'min:1', 'exists:'.config('wk-core.table.site-mall.emails').',id']
         ];
 
         $request = Request::instance();
@@ -83,7 +83,7 @@ class EmailFormRequest extends FormRequest
             $request->isMethod('put')
             && isset($request->id)
         ) {
-            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site.emails').',id']]);
+            $rules = array_merge($rules, ['id' => ['required','integer','min:1','exists:'.config('wk-core.table.site-mall.emails').',id']]);
         }
 
         return $rules;

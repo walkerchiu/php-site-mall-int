@@ -3,8 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory  $factory */
 
 use Faker\Generator as Faker;
-use WalkerChiu\Site\Models\Entities\Site;
-use WalkerChiu\Site\Models\Entities\SiteLang;
+use WalkerChiu\SiteMall\Models\Entities\Site;
+use WalkerChiu\SiteMall\Models\Entities\SiteLang;
 
 $factory->define(Site::class, function (Faker $faker) {
     $language = $faker->randomElement(config('wk-core.class.core.language')::getCodes());

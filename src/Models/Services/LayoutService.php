@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Services;
+namespace WalkerChiu\SiteMall\Models\Services;
 
 use Illuminate\Support\Facades\App;
 use WalkerChiu\Core\Models\Services\CheckExistTrait;
@@ -20,7 +20,7 @@ class LayoutService
      */
     public function __construct()
     {
-        $this->repository = App::make(config('wk-core.class.site.layoutRepository'));
+        $this->repository = App::make(config('wk-core.class.site-mall.layoutRepository'));
     }
 
     /**

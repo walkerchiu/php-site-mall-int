@@ -1,10 +1,10 @@
 <?php
 
-namespace WalkerChiu\Site\Events;
+namespace WalkerChiu\SiteMall\Events;
 
 use Illuminate\Auth\Events\Lockout as BaseClass;
 use Illuminate\Http\Request;
-use WalkerChiu\Site\Events\EventTrait;
+use WalkerChiu\SiteMall\Events\EventTrait;
 
 class Lockout extends BaseClass
 {

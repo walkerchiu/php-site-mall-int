@@ -1,6 +1,6 @@
 <?php
 
-namespace WalkerChiu\Site\Models\Services;
+namespace WalkerChiu\SiteMall\Models\Services;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
@@ -24,7 +24,7 @@ class SiteService
      */
     public function __construct()
     {
-        $this->repository = App::make(config('wk-core.class.site.siteRepository'));
+        $this->repository = App::make(config('wk-core.class.site-mall.siteRepository'));
     }
 
     /**
@@ -109,7 +109,7 @@ class SiteService
      *
      * @throws NotFoundEntityException
      */
-    public function getSiteIndex($parameter = null): array
+    public function getSiteMallIndex($parameter = null): array
     {
         $site = $this->getSite($parameter);
 

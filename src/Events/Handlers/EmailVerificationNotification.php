@@ -1,13 +1,13 @@
 <?php
 
-namespace WalkerChiu\Site\Events\Handlers;
+namespace WalkerChiu\SiteMall\Events\Handlers;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use WalkerChiu\Site\Events\VerifyEmail;
-use WalkerChiu\Site\Events\EmailVerified;
-use WalkerChiu\Site\Events\PasswordForgot;
-use WalkerChiu\Site\Events\PasswordReset;
-use WalkerChiu\Site\Events\Handlers\Notification;
+use WalkerChiu\SiteMall\Events\VerifyEmail;
+use WalkerChiu\SiteMall\Events\EmailVerified;
+use WalkerChiu\SiteMall\Events\PasswordForgot;
+use WalkerChiu\SiteMall\Events\PasswordReset;
+use WalkerChiu\SiteMall\Events\Handlers\Notification;
 
 class EmailVerificationNotification extends Notification
 {
@@ -92,13 +92,13 @@ class EmailVerificationNotification extends Notification
      */
     public function passwordForgot($event)
     {
-        $link = config('wk-site.client.link.backend') .'/'. config('wk-site.client.link.password-reset');
+        $link = config('wk-site-mall.client.link.backend') .'/'. config('wk-site-mall.client.link.password-reset');
         if ($event->admin)
-            $link = config('wk-site.client.url') .'/'. $link;
+            $link = config('wk-site-mall.client.url') .'/'. $link;
 
-        switch (config('wk-site.client.mode')) {
+        switch (config('wk-site-mall.client.mode')) {
             case 'lighthouse-graphql-passport':
-                $link = config('wk-site.client.url') .'/'. $link .'?token='. $event->token;
+                $link = config('wk-site-mall.client.url') .'/'. $link .'?token='. $event->token;
                 break;
             default:
                 $link = url($link .'/'. $event->token);
