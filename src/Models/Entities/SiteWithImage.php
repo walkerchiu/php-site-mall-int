@@ -5,11 +5,13 @@ namespace WalkerChiu\SiteMall\Models\Entities;
 use WalkerChiu\Core\Models\Entities\Entity;
 use WalkerChiu\Core\Models\Entities\LangTrait;
 use WalkerChiu\Currency\Models\Entities\CurrencyTrait;
+use WalkerChiu\MorphImage\Models\Entities\ImageTrait;
 
-class Site extends Entity
+class SiteWithImage extends Entity
 {
     use LangTrait;
     use CurrencyTrait;
+    use ImageTrait;
 
 
 

@@ -9,12 +9,14 @@ use WalkerChiu\Core\Models\Repositories\RepositoryTrait;
 use WalkerChiu\Core\Models\Services\PackagingFactory;
 use WalkerChiu\Currency\Models\Services\CurrencyService;
 use WalkerChiu\MorphComment\Models\Repositories\CommentRepositoryTrait;
+use WalkerChiu\MorphImage\Models\Repositories\ImageRepositoryTrait;
 
-class SiteRepository extends Repository
+class SiteRepositoryWithImage extends Repository
 {
     use FormTrait;
     use RepositoryTrait;
     use CommentRepositoryTrait;
+    use ImageRepositoryTrait;
 
     protected $instance;
 
